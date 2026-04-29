@@ -9,7 +9,6 @@ import shutil
 import os
 
 
-# 🔍 Validate Email
 def check_email():
     email = entry.get().strip()
 
@@ -30,7 +29,6 @@ def check_email():
             update_result("✅ Valid Email", "success")
 
 
-# 🎯 Update result color
 def update_result(text, status):
     colors = {
         "success": "#2ecc71",
@@ -40,7 +38,6 @@ def update_result(text, status):
     result_label.config(text=text, foreground=colors.get(status, "white"))
 
 
-# 📂 Bulk Upload + GRAPH
 def bulk_upload():
     global last_result_file
 
@@ -58,7 +55,6 @@ def bulk_upload():
         show_graph(valid, invalid, disposable)
 
 
-# 📈 Graph inside GUI
 def show_graph(valid, invalid, disposable):
     for widget in graph_frame.winfo_children():
         widget.destroy()
@@ -86,7 +82,6 @@ def show_graph(valid, invalid, disposable):
     canvas.get_tk_widget().pack()
 
 
-# 💾 Download Results
 def download_results():
     if not os.path.exists("results.csv"):
         messagebox.showerror("Error", "No results found. Run validation first.")
@@ -103,7 +98,6 @@ def download_results():
         messagebox.showinfo("Success", "Results downloaded successfully!")
 
 
-# 🧹 Clear
 def clear_input():
     entry.delete(0, tk.END)
     result_label.config(text="")
@@ -113,14 +107,12 @@ def clear_input():
         widget.destroy()
 
 
-# 🪟 Window
 app = tk.Tk()
 app.title("Smart Email Validator")
 app.geometry("650x680")
 app.configure(bg="#12121c")
 
 
-# 🎨 Style
 style = ttk.Style()
 style.theme_use("clam")
 
@@ -157,24 +149,20 @@ style.configure("Success.TButton",
                 font=("Segoe UI", 10, "bold"))
 
 
-# 📦 Main Frame
 frame = tk.Frame(app, bg="#1e1e2f", padx=25, pady=25)
 frame.pack(pady=20)
 
 
-# 📌 Title
 title = ttk.Label(frame, text="📧 Email Validator", style="Title.TLabel")
 title.grid(row=0, column=0, columnspan=3, pady=10)
 
 
-# 📥 Input
 entry = ttk.Entry(frame, width=40, font=("Segoe UI", 13))
 entry.grid(row=1, column=0, columnspan=3, pady=10, ipady=5)
 
 entry.bind("<Return>", lambda event: check_email())
 
 
-# 🔘 Buttons
 validate_btn = ttk.Button(frame, text="Validate", style="Primary.TButton", command=check_email)
 validate_btn.grid(row=2, column=0, padx=5, pady=10, sticky="ew")
 
@@ -185,27 +173,22 @@ download_btn = ttk.Button(frame, text="⬇ Download", style="Success.TButton", c
 download_btn.grid(row=2, column=2, padx=5, pady=10, sticky="ew")
 
 
-# 📂 Bulk Upload
 bulk_btn = ttk.Button(frame, text="📂 Upload CSV", style="Info.TButton", command=bulk_upload)
 bulk_btn.grid(row=3, column=0, columnspan=3, pady=10, sticky="ew")
 
 
-# 📊 Result
 result_label = ttk.Label(frame, text="", font=("Segoe UI", 13))
 result_label.grid(row=4, column=0, columnspan=3, pady=8)
 
 
-# 📈 Stats
 stats_label = ttk.Label(frame, text="", font=("Segoe UI", 10))
 stats_label.grid(row=5, column=0, columnspan=3, pady=5)
 
 
-# 📉 Graph Frame
 graph_frame = tk.Frame(app, bg="#12121c")
 graph_frame.pack(pady=10)
 
 
-# 📌 Footer (BIGGER)
 footer = ttk.Label(
     app,
     text="✨ Built with Python • Developed by Pratyasha Panda",

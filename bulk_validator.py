@@ -9,11 +9,10 @@ def validate_bulk(input_file, output_file):
     invalid = 0
     disposable = 0
 
-    # ✅ Read file safely
     with open(input_file, 'r') as file:
         lines = file.read().splitlines()
 
-    for line in lines[1:]:   # skip header
+    for line in lines[1:]: 
         email = line.strip()
 
         if not email:
@@ -39,7 +38,6 @@ def validate_bulk(input_file, output_file):
 
         results.append({"email": email, "status": status})
 
-    # ✅ Save results to CSV
     with open(output_file, 'w', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=["email", "status"])
         writer.writeheader()
@@ -53,10 +51,7 @@ def validate_bulk(input_file, output_file):
     print("Invalid Emails:", invalid)
     print("Disposable Emails:", disposable)
 
-    # 🔥 IMPORTANT: Return stats for GUI + graph
     return total, valid, invalid, disposable
 
-
-# ✅ Allow direct run
 if __name__ == "__main__":
     validate_bulk("emails.csv", "results.csv")
